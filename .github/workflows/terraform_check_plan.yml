@@ -1,0 +1,23 @@
+name: terraform check execution plan
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: sets up terraform cli
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.1.7"
+
+      - name: checks the execution plan
+        run: terraform plan
