@@ -8,8 +8,7 @@ jobs:
     if_merged:
       if: github.event.pull_request.merged == true
       runs-on: ubuntu-latest
-      
-      steps: 
+      steps:
         - name: Git checkout
           uses: actions/checkout@v4
 
@@ -35,7 +34,5 @@ jobs:
           run: terraform validate
 
         - name: terraform applies the changes
-          run: terraform apply
-      
-
-        
+          run: terraform apply      
+          
