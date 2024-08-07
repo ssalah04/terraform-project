@@ -4,11 +4,17 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+    AWS_ACCESS_KEY_ID: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+    AWS_SECRET_ACCESS_KEY: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+
+
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+  
 
     steps:
       - name: Git checkout
@@ -18,7 +24,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.2.0"
-
+        
       - name: initialises terraform configuration
         run: terraform init
 
@@ -30,5 +36,6 @@ jobs:
 
       - name: checks the execution plan
         run: terraform plan
+      
 
         
