@@ -1,9 +1,6 @@
 name: Terraform apply
 
 on:
-    push:
-      branches: ["main"]
-    
     pull_request:
       types:
         - closed

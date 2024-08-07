@@ -1,0 +1,22 @@
+name: Enforce PR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  enforce-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check for Pull Request
+        id: check_pr
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "This push is not part of a pull request. Failing the job."
+            exit 1
+          fi
+
+      - name: Proceed if part of a PR
+        run: echo "This push is part of a pull request. Continuing the workflow."
