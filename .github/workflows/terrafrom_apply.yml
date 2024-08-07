@@ -1,0 +1,40 @@
+name: Terraform apply
+
+on:
+    pull_request:
+      types:
+        - closed
+jobs:
+    if_merged:
+      if: github.event.pull_request.merged == true
+      runs-on: ubuntu-latest
+      steps: 
+        - name: Git checkout
+        uses: actions/checkout@v4
+        - name: Configure AWS credentials
+    
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+        - name: sets up terraform cli
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.2.0"
+        
+        - name: initialises terraform configuration
+        run: terraform init
+
+        - name: terraform format
+        run: terraform fmt
+
+        - name: terraform validate 
+        run: terraform validate
+
+        - name: checks the execution plan
+        run: terraform plan
+      
+
+        
